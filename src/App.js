@@ -3,7 +3,19 @@ import Images from "./Images";
 
 
 function App() {
-  const [data, setData] = useState(Images);
+  function shuffle(sourceArray) {
+    for (var i = 0; i < sourceArray.length - 1; i++) {
+        var j = i + Math.floor(Math.random() * (sourceArray.length - i));
+        var temp = sourceArray[j];
+        sourceArray[j] = sourceArray[i];
+        sourceArray[i] = temp;
+    }
+    return sourceArray;
+}
+
+var randomObject = shuffle(Images);
+
+  const [data, setData] = useState(randomObject);
   const [yes, setYes] = useState(0);
 
   const selectCategory = (category) => {
@@ -49,10 +61,8 @@ function App() {
 
   /*Randomizing the object*/
 
-  var listKeys = Object.keys(Images);
-  var randomIndex = Math.floor(Math.random() * listKeys.length);
-  var randomObject = Images[listKeys[randomIndex]];
-  console.log(listKeys);
+  
+
 
   return (
     <div>
@@ -78,7 +88,8 @@ function App() {
         <button style={lengthStyle}><h1>{data.length}</h1></button>
       </div>
       <div style={buttonClass}>
-        {data.map((element) => {
+        {
+          data.map((element) => {
           return (
             <div
               style={{
